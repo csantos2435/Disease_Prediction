@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:bank/app_database.dart';
+import 'package:flutter/widgets.dart';
 
-void main() => runApp(DiseasePredictionApp());
+
+void main() {
+  runApp(DiseasePredictionApp());
+  
+   findAll().then((diseasepredictions) => debugPrint(diseasepredictions.toString()));
+}
 
 class DiseasePredictionApp extends StatelessWidget {
   DiseasePredictionApp({super.key});
@@ -8,9 +15,8 @@ class DiseasePredictionApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: DiseasePrediction(),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: DiseasePrediction(),
     );
   }
 }
@@ -23,12 +29,14 @@ class DiseasePrediction extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: GestureDetector(
-          // onTap: () {
-          //   Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) {return Login();}),
-          //   );
-          // },
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return Login();
+              }),
+            );
+          },
           child: Image.asset('imagens/Image.jpeg'),
         ),
         
@@ -36,3 +44,17 @@ class DiseasePrediction extends StatelessWidget {
     );
   }
 }
+
+//**************************************************** TELA LOGIN *********************************************************************** */
+
+class Login extends StatefulWidget {
+  Login({super.key});
+
+  final List<Login> _login = [];
+  
+  @override
+  State<StatefulWidget> createState() {
+    //return LoginState();
+  }
+}
+
