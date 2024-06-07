@@ -37,15 +37,26 @@ class DiseasePrediction extends StatelessWidget {
               }),
             );
           },
-          child: Image.asset('imagens/Image.jpeg'),
+          child: <Widget>[
+            new Image.asset(
+              'imagens/Image.jpeg',
+              height: double.infinity,
+              width: double.infinity,
+              fit: BoxFit.fill,
+            )
+          ],
         ),
-        
       ),
     );
   }
 }
 
 //**************************************************** TELA LOGIN *********************************************************************** */
+
+// class ListaContatos extends StatelessWidget {
+//   const ListaContatos({super.key});
+
+// } 
 
 class Login extends StatefulWidget {
   Login({super.key});
