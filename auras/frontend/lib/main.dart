@@ -1,6 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:sqflite/sqflite.dart';
-import 'package:auras/app_database.dart';
+import 'package:avc_form/app_database.dart';
+import 'dart:convert';
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(DiseasePredictionApp());
@@ -576,6 +579,8 @@ class FormularioDisease extends StatefulWidget {
   _FormDiseasePageState createState() => _FormDiseasePageState();
 }
 
+
+
 class _FormDiseasePageState extends State<FormularioDisease> {
   final TextEditingController controllername = TextEditingController();
   final TextEditingController controllercpf = TextEditingController();
@@ -605,7 +610,17 @@ class _FormDiseasePageState extends State<FormularioDisease> {
   final TextEditingController controllertroponin = TextEditingController();
   final TextEditingController controllerc_reactive_protein = TextEditingController();
   
-  String get _mesagem => null;
+ String? _mesagem; // Pode ser nulo, inicializado como null
+
+  // Getter para _mesagem
+  String? get mesagem => _mesagem;
+
+  // Setter para _mesagem
+  set mesagem(String? value) {
+    setState(() {
+      _mesagem = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1206,7 +1221,7 @@ class _FormDiseasePageState extends State<FormularioDisease> {
     'c_reactive_protein': controllerc_reactive_protein,
   };
 
-  String requestBody = convert.jsonEncode(data);
+   String requestBody = jsonEncode(data);
 
   if (kDebugMode) {
     print(requestBody);
@@ -1222,7 +1237,7 @@ class _FormDiseasePageState extends State<FormularioDisease> {
     );
 
     if (response.statusCode == 200) {
-      final teste = convert.jsonDecode(response.body);
+      final teste = jsonDecode(response.body);
 
       if (teste == 1) {
         var _fullNameController;
@@ -1265,7 +1280,7 @@ void _exibirAlerta(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Paciente cadastrado com sucesso!'),
-        content: Text(_mesagem),
+        content: Text(_mesagem!),
         actions: [
           FloatingActionButton(
             onPressed: () {
@@ -1288,7 +1303,7 @@ final String label;
 const SelectOption(this.value, this.label);
 }
 
-}
+
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();
